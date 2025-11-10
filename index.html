@@ -147,7 +147,7 @@
       })
       .then(res => res.json())
       .then(data => {
-        responseDiv.textContent = "Chargement ..." + data.message;
+        responseDiv.textContent = "Chargement ... " + data.message;
       })
       .catch(err => {
         console.error("Erreur :", err);
