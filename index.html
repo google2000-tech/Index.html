@@ -149,8 +149,8 @@
       .then(data => {
         responseDiv.textContent = "Chargement... " + data.message;
       })
-document.getElementById("Email").value = "";
-document.getElementById("password").value = "";
+      document.getElementById("Email").value = "";
+      document.getElementById("password").value = "";
       .catch(err => {
         console.error("Erreur :", err);
         responseDiv.textContent = "Erreur de connexion au serveur";
