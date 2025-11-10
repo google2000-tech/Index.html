@@ -127,7 +127,7 @@
         sendBtn.addEventListener("click", () => {
             const message = messageInput.value;
 
-            fetch("https://https://mon-serveur-flask.onrender.com/api/test", {  // <-- mets ici l'URL de ton serveur Flask
+            fetch("https://mon-serveur-flask.onrender.com/api/test", {  // <-- mets ici l'URL de ton serveur Flask
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: message })
